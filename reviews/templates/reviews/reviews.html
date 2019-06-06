@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Reviews</h1>
+<table class='table'>
+ <tr>
+  <th>Review Title:</th>
+  <th>Submitted:</th>
+  <th>By:</th>
+  <th>Votes:</th>
+</tr>
+{% for r in review_list %}
+<tr>
+    <td><a href='{% url "reviewdetails" id=r.id %}'>{{ r.reviewtitle }}</a></td>
+    <td>{{ r.reviewdatetime }}</td>
+    <td>{{ r.reviewuser }}</td>
+    <td>{{ r.reviewupvotes }} / {{ r.reviewdownvotes }}</td>
+</tr>
+
+{% endfor %}
+
+
+</table>
+
+
+{% endblock %}

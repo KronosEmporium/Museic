@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+<h2>{{ song.songtitle }}</h2>
+<p>Link: {{ song.songlink }}</p>
+
+{% if song.ratingcount > 0 %}
+<p>Rating: {{ song.calcRating | floatformat:1 }} / 10.0</p>
+{% else %}
+<p>Rating: 0.0 / 10.0</p>
+{% endif %}
+
+<p>Number of Ratings: {{ song.ratingcount }}</p>
+<p>Reviews: <br>
+    
+    <!-- <th><a href="{{ url 'songdetails' }}?sort_by=reviewdatetime">New </a></th>
+    <th><a href="{{ url 'songdetails' }}?sort_by=reviewupvotes">Upvotes </a></th>
+    <th><a href="{{ url 'songdetails' }}?sort_by=reviewdownvotes">Downvotes </a></th> -->
+
+        {% for u in song.songreviews.all|sort_by:'' %}
+        <li><a href="{% url 'reviewdetails' id=u.id %}">{{ u }}</a> ({{ u.reviewupvotes }} / {{ u.reviewdownvotes }}) (Submitted: {{ u.reviewdatetime }})</li>
+
+        {% endfor %}
+
+{% endblock %}

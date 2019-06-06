@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ rev.reviewtitle }}</h2>
+<p>Submitted: {{ rev.reviewdatetime }}</p>
+<p>User: {{ rev.reviewuser }}</p>
+<p>Upvotes/Downvotes: {{ rev.reviewupvotes }} / {{ rev.reviewdownvotes }}</p>
+<p>Review: <br>{{ rev.reviewtext }}
+{% endblock %}

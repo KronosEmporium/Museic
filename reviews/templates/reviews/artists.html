@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Artists</h1>
+<table class='table'>
+ <tr>
+  <th>Artist:</th>
+  <th>Genre:</th>
+  <th>Rating:</th>
+  <th>Songs:</th>
+</tr>
+{% for r in artist_list %}
+<tr>
+    <td>{{ r.artistname }}</td>
+    <td>{{ r.artistgenre }}</td>
+    <td>{{ r.artistrating }} / 10.0</td>
+    <td>
+        {% for u in r.artistsongs.all %}
+        <li><a href="{% url 'songdetails' id=u.id %}">{{ u }}</a></li>
+
+        {% endfor %}
+    </td>
+</tr>
+
+{% endfor %}
+
+
+</table>
+
+
+{% endblock %}

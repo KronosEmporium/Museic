@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Songs</h1>
+<table class='table'>
+ <tr>
+  <th>Song Title:</th>
+  <th>Link:</th>
+  <th>Rating:</th>
+  <th>Reviews:</th>
+</tr>
+{% for r in song_list %}
+<tr>
+    <td><a href='{% url "songdetails" id=r.id %}'>{{ r.songtitle }}</a></td>
+    <td><a href="{{ r.songlink }}">{{ r.songlink }}</a></td>
+
+    {% if r.ratingcount > 0 %}
+    <td>Rating: {{ r.calcRating | floatformat:1 }} / 10.0</td>
+    {% else %}
+    <td>Rating: 0.0 / 10.0</td>
+    {% endif %}
+
+    <td>
+        {% for u in r.songreviews.all %}
+        <li><a href="{% url 'reviewdetails' id=u.id %}">{{ u }}</a></li>
+
+        {% endfor %}
+    </td>
+</tr>
+
+{% endfor %}
+
+
+</table>
+
+
+{% endblock %}
