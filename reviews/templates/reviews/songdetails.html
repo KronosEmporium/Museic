@@ -13,13 +13,29 @@
 <p>Number of Ratings: {{ song.ratingcount }}</p>
 <p>Reviews: <br>
     
-    <!-- <th><a href="{{ url 'songdetails' }}?sort_by=reviewdatetime">New </a></th>
-    <th><a href="{{ url 'songdetails' }}?sort_by=reviewupvotes">Upvotes </a></th>
-    <th><a href="{{ url 'songdetails' }}?sort_by=reviewdownvotes">Downvotes </a></th> -->
+    <form method='get' action='#'>
+        <input type="submit" value="New" name="New"/>
+        <input type="submit" value="Upvotes" name="Upvotes"/>
+        <input type="submit" value="Downvotes" name="Downvotes"/>
+    </form>
 
-        {% for u in song.songreviews.all|sort_by:'' %}
+    {% if request.GET.New %}
+        {% for u in song.songreviews.all|sort_by:'-reviewdatetime' %}
         <li><a href="{% url 'reviewdetails' id=u.id %}">{{ u }}</a> ({{ u.reviewupvotes }} / {{ u.reviewdownvotes }}) (Submitted: {{ u.reviewdatetime }})</li>
-
         {% endfor %}
+    {% endif %}
+
+    {% if request.GET.Upvotes %}
+        {% for u in song.songreviews.all|sort_by:'-reviewupvotes' %}
+        <li><a href="{% url 'reviewdetails' id=u.id %}">{{ u }}</a> ({{ u.reviewupvotes }} / {{ u.reviewdownvotes }}) (Submitted: {{ u.reviewdatetime }})</li>
+        {% endfor %}
+    {% endif %}
+
+    {% if request.GET.Downvotes %}
+        {% for u in song.songreviews.all|sort_by:'-reviewdownvotes' %}
+        <li><a href="{% url 'reviewdetails' id=u.id %}">{{ u }}</a> ({{ u.reviewupvotes }} / {{ u.reviewdownvotes }}) (Submitted: {{ u.reviewdatetime }})</li>
+        {% endfor %}
+    {% endif %}
+
 
 {% endblock %}

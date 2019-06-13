@@ -14,19 +14,30 @@
    <nav class="navbar navbar-default"> 
    <div class="container-fluid">
 <div class="navbar-header"> 
-<a class="navbar-brand" href="{% url 'index' %}"><i class="fa fa-fw fa-home"></i> Home</a> 
+<a draggable='false' class="navbar-brand" href="{% url 'index' %}"><i class="fa fa-fw fa-home"></i> Home</a> 
 </div> 
 <ul class="nav navbar-nav">
-    <li><a href="{% url 'songs' %}">Songs</a></li>
-    <li><a href="{% url 'artists' %}">Artists</a></li>
-    <li><a href="{% url 'reviews' %}">Reviews</a></li>
+    <li><a draggable='false' href="{% url 'songs' %}">Songs</a></li>
+    <li><a draggable='false' href="{% url 'artists' %}">Artists</a></li>
+    <li><a draggable='false' href="{% url 'reviews' %}">Reviews</a></li>
+    <li><a draggable='false' href="{% url 'newreview' %}">Submit a Review</a></li>
+    
+    {% if not user.is_authenticated %}
+    <li><a draggable='false' href="{% url 'login' %}">Login</a></li>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <li><a style='pointer-events: none;'>You are logged in as <b>{{ request.user.username }}</b>.</a></li>
+    <li><a draggable='false' href="{% url 'logout' %}">Logout</a></li>
+    {% endif %}
+
 </ul>
 </div> 
 </nav> 
 <div class="container-fluid"> 
 {% block content %} 
 
-{% endblock content %} 
+{% endblock content %}
 </div> 
 </body> 
 </html>

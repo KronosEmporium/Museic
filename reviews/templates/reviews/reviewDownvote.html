@@ -2,16 +2,15 @@
 {% block content %}
 <h2>{{ rev.reviewtitle }}</h2>
 <p>Submitted: {{ rev.reviewdatetime }}</p>
-<p>By: {{ rev.reviewuser }}</p>
+<p>User: {{ rev.reviewuser }}</p>
 <p>Upvotes/Downvotes: {{ rev.reviewupvotes }} / {{ rev.reviewdownvotes }}</p>
     {% if user.is_authenticated %}
-    <form method="get" action={% url 'reviewUpvote' rev.id %}>
+    <form method="get" action="reviewUpvote/{{ rev.id }}">
         <input type="submit" value="Upvote">
     </form>
-    <form method="get" action={% url 'reviewDownvote' rev.id %}>
+    <form method="get" action="reviewDownvote/{{ rev.id }}">
         <input type="submit" value="Downvote">
     </form>
     {% endif %}
-
 <p>Review: <br>{{ rev.reviewtext }}
 {% endblock %}

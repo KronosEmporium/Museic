@@ -1,7 +1,12 @@
 from django import forms
-from .models import Song, Artist, Review
+from .models import Song, Artist, Review, UserProfile
 
 class ReviewForm (forms.ModelForm):
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = ('reviewtitle','reviewsong','reviewtext')
+        labels = {
+            'reviewtitle' : 'Review Title',
+            'reviewsong' : 'Song',
+            'reviewtext' : '',
+        }
